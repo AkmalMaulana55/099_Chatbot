@@ -1,0 +1,196 @@
+:root {
+  --page: #ece6f7;
+  --card: #ffffff;
+  --head: #4a2c8a;
+  --head-text: #ffffff;
+  --head-sub: #cdbdf0;
+  --bot: #f1ecfa;
+  --bot-text: #231a3a;
+  --user: #6b3fd0;
+  --user-text: #ffffff;
+  --line: #e5def2;
+  --input-border: #d5cae9;
+  --placeholder: #8a7fa3;
+  --btn: #6b3fd0;
+  --btn-text: #ffffff;
+  --online: #5fe0a0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #15101f;
+    --card: #201a30;
+    --head: #38216b;
+    --bot: #2d2543;
+    --bot-text: #ece6fa;
+    --user: #7d54e0;
+    --line: #342b4b;
+    --input-border: #463b63;
+    --placeholder: #9a8fb8;
+    --btn: #8a63ee;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: var(--page);
+  font-family: "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Kotak utama */
+.chat {
+  width: 100%;
+  max-width: 536px;
+  height: min(750px, 100%);
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 34px rgba(74, 44, 138, .22);
+}
+
+/* Header */
+.chat-head {
+  background: var(--head);
+  color: var(--head-text);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+}
+
+.avatar {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .16);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.head-text { flex: 1; min-width: 0; }
+.head-text h1 { margin: 0; font-size: 18px; font-weight: 700; }
+.head-text p {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: var(--head-sub);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--head-sub);
+}
+.status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--online);
+}
+
+/* Pesan */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.msg {
+  max-width: 78%;
+  padding: 12px 16px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.msg.bot {
+  background: var(--bot);
+  color: var(--bot-text);
+  align-self: flex-start;
+  border-radius: 18px 18px 18px 4px;
+}
+
+.msg.user {
+  background: var(--user);
+  color: var(--user-text);
+  align-self: flex-end;
+  border-radius: 18px 18px 4px 18px;
+}
+
+/* Indikator mengetik */
+.typing { display: inline-flex; gap: 5px; align-items: center; height: 1.6em; }
+.typing i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .35;
+  animation: blink 1.2s infinite;
+}
+.typing i:nth-child(2) { animation-delay: .2s; }
+.typing i:nth-child(3) { animation-delay: .4s; }
+
+@keyframes blink { 40% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .typing i { animation: none; opacity: .6; }
+}
+
+/* Input */
+.composer {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+}
+
+.composer input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 18px;
+  font-size: 15px;
+  border: 1.5px solid var(--input-border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--bot-text);
+  outline: none;
+}
+.composer input::placeholder { color: var(--placeholder); }
+.composer input:focus { border-color: var(--btn); }
+
+.composer button {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--btn);
+  color: var(--btn-text);
+  display: grid;
+  place-items: center;
+}
+.composer button:disabled { opacity: .45; cursor: default; }
+.composer button:focus-visible { outline: 2px solid var(--btn); outline-offset: 2px; }
